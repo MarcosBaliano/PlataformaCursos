@@ -28,6 +28,10 @@
             font-size: 1.5rem; 
             margin-bottom: 15px;
         }
+        .about-section {
+            background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+            border-radius: 20px;
+        }
     </style>
 </head>
 <body>
@@ -81,47 +85,60 @@
         </div>
     </div>
 
-    <div class="row g-4">
+    <div class="row g-4 mb-5">
         <div class="col-md-4 col-lg-2">
             <div class="card card-menu p-4 h-100" onclick="location.href='pages/usuario.html'">
                 <div class="icon-box bg-primary text-white"><i class="bi bi-person-gear"></i></div>
-                <h5 class="fw-bold">Usuários</h5>
-                <p class="small text-muted">Gestão de alunos.</p>
+                <h6 class="fw-bold">Usuários</h6>
+                <p class="x-small text-muted mb-0" style="font-size: 0.75rem;">Gestão de alunos.</p>
             </div>
         </div>
         <div class="col-md-4 col-lg-2">
             <div class="card card-menu p-4 h-100" onclick="location.href='pages/academico.html'">
                 <div class="icon-box bg-success text-white"><i class="bi bi-mortarboard"></i></div>
-                <h5 class="fw-bold">Académico</h5>
-                <p class="small text-muted">Cursos ativos.</p>
+                <h6 class="fw-bold">Académico</h6>
+                <p class="x-small text-muted mb-0" style="font-size: 0.75rem;">Cursos ativos.</p>
             </div>
         </div>
         <div class="col-md-4 col-lg-2">
             <div class="card card-menu p-4 h-100" onclick="location.href='pages/conteudo.html'">
                 <div class="icon-box bg-dark text-white"><i class="bi bi-layers"></i></div>
-                <h5 class="fw-bold">Conteúdo</h5>
-                <p class="small text-muted">Módulos e aulas.</p>
+                <h6 class="fw-bold">Conteúdo</h6>
+                <p class="x-small text-muted mb-0" style="font-size: 0.75rem;">Módulos e aulas.</p>
             </div>
         </div>
         <div class="col-md-4 col-lg-2">
             <div class="card card-menu p-4 h-100" onclick="location.href='pages/trilha.html'">
                 <div class="icon-box bg-info text-white"><i class="bi bi-diagram-3"></i></div>
-                <h5 class="fw-bold">Trilhas</h5>
-                <p class="small text-muted">Formações.</p>
-            </div>
-        </div>
-        <div class="col-md-4 col-lg-2">
-            <div class="card card-menu p-4 h-100" onclick="location.href='pages/certificados.html'">
-                <div class="icon-box bg-success bg-gradient text-white"><i class="bi bi-patch-check"></i></div>
-                <h5 class="fw-bold">Certificados</h5>
-                <p class="small text-muted">Emissões e códigos.</p>
+                <h6 class="fw-bold">Trilhas</h6>
+                <p class="x-small text-muted mb-0" style="font-size: 0.75rem;">Formações.</p>
             </div>
         </div>
         <div class="col-md-4 col-lg-2">
             <div class="card card-menu p-4 h-100" onclick="location.href='pages/financeiro.html'">
                 <div class="icon-box bg-danger text-white"><i class="bi bi-credit-card"></i></div>
-                <h5 class="fw-bold">Financeiro</h5>
-                <p class="small text-muted">Pagamentos.</p>
+                <h6 class="fw-bold">Financeiro</h6>
+                <p class="x-small text-muted mb-0" style="font-size: 0.75rem;">Pagamentos.</p>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-2">
+            <div class="card card-menu p-4 h-100 border border-primary border-opacity-25" onclick="location.href='pages/quemsomos.html'">
+                <div class="icon-box bg-white text-primary border border-primary"><i class="bi bi-info-circle-fill"></i></div>
+                <h6 class="fw-bold">Quem Somos</h6>
+                <p class="x-small text-muted mb-0" style="font-size: 0.75rem;">Nossa história.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="about-section p-5 text-white shadow-lg mb-5">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h3 class="fw-bold">Educação que transforma</h3>
+                <p class="opacity-75">Conheça os valores que movem nossa plataforma e como ajudamos milhares de alunos a conquistarem seus certificados e novas oportunidades no mercado.</p>
+                <a href="pages/quemsomos.html" class="btn btn-light btn-sm fw-bold px-4 py-2 mt-2">SAIBA MAIS</a>
+            </div>
+            <div class="col-md-4 text-center d-none d-md-block">
+                <i class="bi bi-shield-check text-white opacity-50" style="font-size: 6rem;"></i>
             </div>
         </div>
     </div>

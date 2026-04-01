@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quem Somos | Cursos Online</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="p-4 bg-white rounded shadow-sm h-100">
+                <h1 class="fw-bold text-primary mb-4">Quem Somos</h1>
+                <p class="text-secondary">
+                    A <strong>Cursos Online</strong> nasceu com o propósito de transformar a maneira como o conhecimento tecnológico é compartilhado. Acreditamos que a educação de qualidade deve ser acessível, prática e alinhada às demandas reais do mercado de trabalho.
+                </p>
+                <p class="text-secondary">
+                    Desenvolvemos uma plataforma robusta, intuitiva e pensada especialmente para quem busca se capacitar com eficiência. Combinamos as melhores práticas de desenvolvimento com um ambiente focado em resultados.
+                </p>
+                
+                <div class="mt-4">
+                    <h5 class="fw-bold"><i class="bi bi-geo-alt-fill text-primary me-2"></i>Localização</h5>
+                    <p class="text-muted small">Goiânia, Goiás - Brasil</p>
+                    
+                    <h5 class="fw-bold"><i class="bi bi-envelope-fill text-primary me-2"></i>E-mail</h5>
+                    <p class="text-muted small">contato@cursosonline.com.br</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="p-4 bg-primary text-white rounded shadow-sm h-100">
+                <h3 class="fw-bold mb-3"><i class="bi bi-chat-right-text-fill me-2"></i>Entre em Contato</h3>
+                <p class="opacity-75 small">Dúvidas, sugestões ou parcerias? Envie uma mensagem e retornaremos em breve.</p>
+                
+                <form id="form-contato" onsubmit="enviarMensagem(event)">
+                    <div class="mb-3">
+                        <label class="small fw-bold">NOME</label>
+                        <input type="text" class="form-control" placeholder="Seu nome completo" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="small fw-bold">E-MAIL</label>
+                        <input type="email" class="form-control" placeholder="seu@email.com" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="small fw-bold">MENSAGEM</label>
+                        <textarea class="form-control" rows="4" placeholder="Como podemos ajudar?" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-light w-100 fw-bold text-primary">ENVIAR MENSAGEM</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="text-center mt-4">
+        <a href="../index.html" class="btn btn-outline-secondary fw-bold px-4">VOLTAR PARA A PLATAFORMA</a>
+    </div>
+</div>
+
+<script>
+    function enviarMensagem(event) {
+        event.preventDefault();
+        alert("Mensagem enviada com sucesso! Em breve entraremos em contato.");
+        document.getElementById('form-contato').reset();
+    }
+</script>
+
+</body>
+</html>
