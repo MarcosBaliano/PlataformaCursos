@@ -3,19 +3,64 @@
     --cor-primaria: #198754;
     --cor-dark: #1a1a1a;
     --bg-light: #f4f7f6;
+    --sidebar-width: 250px;
 }
 
 body { 
     background-color: var(--bg-light); 
     font-family: 'Segoe UI', 'Inter', sans-serif; 
+    display: flex; /* Necessário para a sidebar lateral */
 }
 
-/* --- NAVBAR --- */
+/* --- BARRA LATERAL (SIDEBAR) --- */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--cor-dark);
+    height: 100vh;
+    position: fixed;
+    left: 0; 
+    top: 0;
+    padding: 20px 0;
+    z-index: 1000;
+}
+
+.sidebar-brand { 
+    padding: 0 25px 20px; 
+    border-bottom: 1px solid #333; 
+    margin-bottom: 20px; 
+}
+
+.nav-link-side {
+    padding: 12px 25px;
+    color: #adb5bd;
+    text-decoration: none;
+    display: flex; 
+    align-items: center;
+    transition: 0.3s;
+}
+
+.nav-link-side:hover { 
+    color: white; 
+    background: rgba(255,255,255,0.05); 
+}
+
+.nav-link-side i { 
+    margin-right: 15px; 
+}
+
+/* --- CONTEÚDO PRINCIPAL --- */
+.main-content { 
+    margin-left: var(--sidebar-width); 
+    width: 100%; 
+    padding: 40px; 
+}
+
+/* --- NAVBAR SUPERIOR (SE USAR) --- */
 .navbar { 
     background-color: var(--cor-dark) !important; 
 }
 
-/* --- CARDS E TABELAS --- */
+/* --- CARDS E DASHBOARD --- */
 .main-card, .table-card, .card-trilha, .card-cert { 
     background: white; 
     border-radius: 12px; 
@@ -24,7 +69,31 @@ body {
     overflow: hidden;
 }
 
-/* --- MÓDULO: USUÁRIOS --- */
+.card-menu { 
+    transition: transform 0.2s, box-shadow 0.2s; 
+    cursor: pointer; 
+    border: none; 
+    border-radius: 15px;
+    background: white;
+}
+
+.card-menu:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
+}
+
+.icon-box { 
+    width: 60px; 
+    height: 60px; 
+    border-radius: 12px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 1.5rem; 
+    margin-bottom: 15px;
+}
+
+/* --- MÓDULO: USUÁRIOS E AÇÕES --- */
 .btn-edit { 
     color: #0d6efd; 
     background: #e7f1ff; 
