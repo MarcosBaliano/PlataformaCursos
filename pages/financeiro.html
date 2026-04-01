@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financeiro | Cursos Online</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark mb-4" id="navbar">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="../index.html">
+            <i class="bi bi-cash-stack me-2 text-success"></i>Cursos<span>Online</span>
+        </a>
+        <div class="navbar-nav ms-auto flex-row gap-3">
+            <a class="nav-link text-white-50" href="usuario.html">Usuários</a>
+            <a class="nav-link active" href="financeiro.html">Financeiro</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container pb-5">
+    
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-bold m-0 border-start border-4 border-success ps-3 text-indigo">Gestão de Negócio</h4>
+    </div>
+
+    <ul class="nav nav-pills mb-4 gap-2" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <button class="nav-link active fw-bold" data-bs-toggle="pill" data-bs-target="#tab-vendas">Logs de Pagamentos</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link fw-bold" data-bs-toggle="pill" data-bs-target="#tab-planos">Configurar Planos</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link fw-bold" data-bs-toggle="pill" data-bs-target="#tab-assinaturas">Assinaturas Ativas</button>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="tab-vendas">
+            <div class="table-card p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold m-0 text-indigo">Histórico de Transações</h5>
+                    <button class="btn btn-dark btn-sm fw-bold px-3" data-bs-toggle="modal" data-bs-target="#modalNovaVenda" onclick="prepararSelectsVenda()">
+                        <i class="bi bi-plus-lg me-1"></i> NOVA ATIVAÇÃO
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Data</th>
+                                <th>ID Pagamento</th>
+                                <th>Método</th>
+                                <th>Gateway ID</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-pagamentos"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="tab-planos">
+            <div class="table-card p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold m-0 text-indigo">Planos Disponíveis</h5>
+                    <button class="btn btn-success btn-sm fw-bold px-3" data-bs-toggle="modal" data-bs-target="#modalNovoPlano">
+                        <i class="bi bi-plus-lg me-1"></i> NOVO PLANO
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Nome</th>
+                                <th>Descrição</th>
+                                <th>Duração</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-planos"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="tab-assinaturas">
+            <div class="table-card p-4">
+                <h5 class="fw-bold mb-3 text-indigo">Controle de Assinaturas</h5>
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>Aluno</th>
+                                <th>Plano</th>
+                                <th>Início</th>
+                                <th>Fim</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-assinaturas"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalNovoPlano" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title fw-bold">Cadastrar Plano</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">NOME DO PLANO</label>
+                    <input type="text" id="pl-nome" class="form-control" placeholder="Ex: Premium Anual">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">DESCRIÇÃO</label>
+                    <input type="text" id="pl-desc" class="form-control" placeholder="Ex: Acesso total a todos os cursos">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">DURAÇÃO (MESES)</label>
+                    <input type="number" id="pl-meses" class="form-control" value="1">
+                </div>
+                <input type="hidden" id="pl-preco" value="0"> 
+            </div>
+            <div class="modal-footer border-0">
+                <button class="btn btn-success w-100 fw-bold py-2" onclick="salvarNovoPlano()">SALVAR PLANO</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalNovaVenda" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title fw-bold">Ativar Acesso</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="small fw-bold">ALUNO</label>
+                    <select id="v-aluno" class="form-select"></select>
+                </div>
+                <div class="mb-3">
+                    <label class="small fw-bold">PLANO</label>
+                    <select id="v-plano" class="form-select"></select>
+                </div>
+                <div class="mb-3">
+                    <label class="small fw-bold">MÉTODO UTILIZADO</label>
+                    <select id="v-metodo" class="form-select" onchange="alternarCamposPagamento()">
+                        <option value="Pix">Pix</option>
+                        <option value="Cartão">Cartão de Crédito</option>
+                        <option value="Cortesia">Cortesia / Administrativo</option>
+                    </select>
+                </div>
+
+                <div id="campos-pix" class="text-center p-3 bg-light rounded border mb-3">
+                    <p class="small fw-bold mb-2 text-success">QR CODE DE PAGAMENTO</p>
+                    <div class="bg-white p-2 d-inline-block border rounded">
+                        <img id="pix-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=EduPlataformaPagamento" width="150">
+                    </div>
+                </div>
+
+                <div id="campos-cartao" style="display: none;" class="p-3 bg-light rounded border mb-3">
+                    <p class="small fw-bold mb-3 text-primary"><i class="bi bi-credit-card-2-back me-1"></i> DADOS DO CARTÃO</p>
+                    <div class="mb-3">
+                        <label class="small fw-bold text-muted">NÚMERO DO CARTÃO</label>
+                        <input type="text" class="form-control form-control-sm" placeholder="0000 0000 0000 0000">
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label class="small fw-bold text-muted">VALIDADE</label>
+                            <input type="text" class="form-control form-control-sm" placeholder="MM/AA">
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label class="small fw-bold text-muted">CVV</label>
+                            <input type="text" class="form-control form-control-sm" placeholder="123">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer border-0">
+                <button class="btn btn-success w-100 fw-bold py-2" onclick="processarVenda()">CONFIRMAR E LIBERAR ACESSO</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../modules/usuario/usuarioController.js"></script>
+<script src="../modules/plano/planoController.js"></script>
+<script src="../modules/assinatura/assinaturaController.js"></script>
+<script src="../modules/pagamento/pagamentoController.js"></script>
+
+<script>
+    const userCtrl = new UsuarioController();
+    const planoCtrl = new PlanoController();
+    const assinaturaCtrl = new AssinaturaController();
+    const pagamentoCtrl = new PagamentoController();
+
+    window.onload = () => renderizarTudo();
+
+    function renderizarTudo() {
+        renderPlanos();
+        renderAssinaturas();
+        renderPagamentos();
+    }
+
+    function renderPlanos() {
+        const planos = planoCtrl.listarTodos();
+        document.getElementById('tabela-planos').innerHTML = planos.map(p => `
+            <tr>
+                <td class="fw-bold">${p.Nome}</td>
+                <td class="text-muted small">${p.Descricao}</td>
+                <td><span class="badge bg-light text-dark border">${p.DuracaoMeses} Meses</span></td>
+            </tr>
+        `).join('');
+    }
+
+    function renderAssinaturas() {
+        const assinaturas = assinaturaCtrl.listarTodas();
+        const alunos = userCtrl.listarTodos();
+        const planos = planoCtrl.listarTodos();
+
+        document.getElementById('tabela-assinaturas').innerHTML = assinaturas.map(a => {
+            const aluno = alunos.find(u => u.ID_Usuario == a.ID_Usuario);
+            const plano = planos.find(p => p.ID_Plano == a.ID_Plano);
+            return `
+                <tr>
+                    <td class="small text-muted">#${a.ID_Assinatura}</td>
+                    <td class="fw-bold">${aluno ? aluno.NomeCompleto : 'Usuário Removido'}</td>
+                    <td><span class="badge bg-primary-subtle text-primary">${plano ? plano.Nome : '---'}</span></td>
+                    <td class="small">${a.DataInicio}</td>
+                    <td class="text-danger fw-bold small">${a.DataFim}</td>
+                </tr>
+            `;
+        }).reverse().join('');
+    }
+
+    function renderPagamentos() {
+        const pagamentos = pagamentoCtrl.listarTodos();
+        document.getElementById('tabela-pagamentos').innerHTML = pagamentos.map(p => `
+            <tr>
+                <td class="small">${p.DataPagamento}</td>
+                <td class="small fw-bold text-muted">${p.ID_Pagamento}</td>
+                <td><span class="badge bg-success-subtle text-success border-success-subtle">${p.MetodoPagamento}</span></td>
+                <td class="small text-uppercase fw-bold text-truncate" style="max-width: 150px;">${p.Id_Transacao_Gateway}</td>
+            </tr>
+        `).reverse().join('');
+    }
+
+    // FUNÇÃO PARA ALTERNAR VISIBILIDADE
+    function alternarCamposPagamento() {
+        const metodo = document.getElementById('v-metodo').value;
+        document.getElementById('campos-pix').style.display = (metodo === 'Pix') ? 'block' : 'none';
+        document.getElementById('campos-cartao').style.display = (metodo === 'Cartão') ? 'block' : 'none';
+    }
+
+    function prepararSelectsVenda() {
+        const alunos = userCtrl.listarTodos().filter(u => u.Cargo && u.Cargo.toLowerCase() === 'aluno');
+        const planos = planoCtrl.listarTodos();
+        document.getElementById('v-aluno').innerHTML = alunos.map(u => `<option value="${u.ID_Usuario}">${u.NomeCompleto}</option>`).join('');
+        document.getElementById('v-plano').innerHTML = planos.map(p => `<option value="${p.ID_Plano}">${p.Nome}</option>`).join('');
+        alternarCamposPagamento(); // Garante que começa no estado certo
+    }
+
+    function salvarNovoPlano() {
+        const n = document.getElementById('pl-nome').value;
+        const d = document.getElementById('pl-desc').value;
+        const m = document.getElementById('pl-meses').value;
+        if (n) {
+            planoCtrl.cadastrar(n, d, 0, m);
+            bootstrap.Modal.getInstance(document.getElementById('modalNovoPlano')).hide();
+            renderPlanos();
+        }
+    }
+
+    function processarVenda() {
+        const idU = document.getElementById('v-aluno').value;
+        const idP = document.getElementById('v-plano').value;
+        const metodo = document.getElementById('v-metodo').value;
+        const gatewayID = "LOG-" + Math.random().toString(36).toUpperCase().substring(2, 10);
+        const plano = planoCtrl.listarTodos().find(p => p.ID_Plano == idP);
+
+        if (plano) {
+            const ass = assinaturaCtrl.vincular(idU, plano.ID_Plano, plano.DuracaoMeses);
+            pagamentoCtrl.registrar(ass.ID_Assinatura, 0, metodo, gatewayID);
+            bootstrap.Modal.getInstance(document.getElementById('modalNovaVenda')).hide();
+            renderizarTudo();
+            alert(`✅ Acesso Liberado!\nTransação: ${gatewayID}`);
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conteúdo e Trilhas | Cursos Online</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark mb-4" id="navbar">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="../index.html">
+            <i class="bi bi-play-circle-fill me-2 text-primary"></i>Cursos<span>Online</span>
+        </a>
+        <div class="navbar-nav ms-auto flex-row gap-3">
+            <a class="nav-link text-white-50" href="academico.html">Acadêmico</a>
+            <a class="nav-link active" href="conteudo.html">Conteúdo</a>
+            <a class="nav-link text-white-50" href="trilha.html">Trilhas</a>
+            <a class="nav-link text-white-50" href="usuario.html">Usuários</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container pb-5">
+    <div class="table-card p-4 mb-4">
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label class="small fw-bold text-primary">ALUNO (PARA PROGRESSO)</label>
+                <select id="select-aluno" class="form-select border-primary shadow-sm" onchange="atualizarCursosPorAluno()">
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="small fw-bold text-muted">CURSO MATRICULADO</label>
+                <select id="select-curso" class="form-select shadow-sm" onchange="carregarGrade()">
+                </select>
+            </div>
+            <div class="col-md-4 d-flex align-items-end gap-2">
+                <button class="btn btn-primary w-100 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#modalModulo">Módulo</button>
+                <button class="btn btn-dark w-100 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#modalAula" onclick="prepararSelectModulos()">Aula</button>
+            </div>
+        </div>
+        
+        <div class="row mt-3 g-2">
+            <div class="col-md-6">
+                <button class="btn btn-outline-dark w-100 fw-bold" data-bs-toggle="modal" data-bs-target="#modalVincularTrilha" onclick="prepararModalTrilha()">
+                    <i class="bi bi-diagram-3 me-2"></i>ADICIONAR À TRILHA
+                </button>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-warning w-100 fw-bold" data-bs-toggle="modal" data-bs-target="#modalAvaliacao">
+                    <i class="bi bi-star-fill me-2"></i>AVALIAR CURSO
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="area-conclusao" class="card bg-success text-white p-4 shadow-sm border-0 mb-4 text-center" style="display: none;">
+        <h4 class="fw-bold mb-1"><i class="bi bi-trophy-fill me-2"></i> Curso 100% Concluído!</h4>
+        <p class="mb-3 small">Você já pode gerar o seu certificado de conclusão.</p>
+        <button class="btn btn-light fw-bold px-4" onclick="emitirCertificado()">
+            <i class="bi bi-patch-check-fill me-2 text-success"></i>GERAR CERTIFICADO AGORA
+        </button>
+    </div>
+
+    <div id="grade-conteudo"></div>
+</div>
+
+<div class="modal fade" id="modalModulo" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content border-0"><div class="modal-header bg-primary text-white"><h5 class="modal-title fw-bold">Novo Módulo</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="mb-3"><label class="form-label small fw-bold">TÍTULO</label><input type="text" id="m-titulo" class="form-control"></div><div class="mb-3"><label class="form-label small fw-bold">ORDEM</label><input type="number" id="m-ordem" class="form-control" value="1"></div></div><div class="modal-footer"><button class="btn btn-primary w-100 fw-bold" onclick="salvarModulo()">SALVAR MÓDULO</button></div></div></div></div>
+
+<div class="modal fade" id="modalAula" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content border-0"><div class="modal-header bg-dark text-white"><h5 class="modal-title fw-bold">Nova Aula</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="mb-3"><label class="form-label small fw-bold">MÓDULO</label><select id="a-modulo" class="form-select"></select></div><div class="mb-3"><label class="form-label small fw-bold">TÍTULO</label><input type="text" id="a-titulo" class="form-control"></div><div class="row"><div class="col-md-6 mb-3"><label class="form-label small fw-bold">TIPO</label><select id="a-tipo" class="form-select"><option>Vídeo</option><option>Texto</option></select></div><div class="col-md-6 mb-3"><label class="form-label small fw-bold">DURAÇÃO (MIN)</label><input type="number" id="a-duracao" class="form-control"></div></div><div class="mb-3"><label class="form-label small fw-bold">URL</label><input type="text" id="a-url" class="form-control"></div></div><div class="modal-footer"><button class="btn btn-dark w-100 fw-bold" onclick="salvarAula()">SALVAR AULA</button></div></div></div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../modules/usuario/usuarioController.js"></script>
+<script src="../modules/curso/cursoController.js"></script>
+<script src="../modules/matricula/matriculaController.js"></script>
+<script src="../modules/modulo/moduloController.js"></script>
+<script src="../modules/aula/aulaController.js"></script>
+<script src="../modules/progressoAula/progressoAulaController.js"></script>
+<script src="../modules/certificado/certificadoController.js"></script>
+<script src="../modules/assinatura/assinaturaController.js"></script>
+
+<script>
+    const userCtrl = new UsuarioController();
+    const cursoCtrl = new CursoController();
+    const matriculaCtrl = new MatriculaController();
+    const moduloCtrl = new ModuloController();
+    const aulaCtrl = new AulaController();
+    const progressoCtrl = new ProgressoAulaController();
+    const certCtrl = new CertificadoController();
+    const assinaturaCtrl = new AssinaturaController();
+
+    window.onload = () => carregarSelectsIniciais();
+
+    function carregarSelectsIniciais() {
+        const alunos = userCtrl.listarTodos().filter(u => u.Cargo && u.Cargo.toLowerCase() === 'aluno');
+        const selectAluno = document.getElementById('select-aluno');
+        
+        if (alunos.length > 0) {
+            selectAluno.innerHTML = alunos.map(u => `<option value="${u.ID_Usuario}">${u.NomeCompleto}</option>`).join('');
+            atualizarCursosPorAluno();
+        } else {
+            selectAluno.innerHTML = '<option value="">Nenhum aluno cadastrado</option>';
+        }
+    }
+
+    function atualizarCursosPorAluno() {
+        const idAluno = document.getElementById('select-aluno').value;
+        const selectCurso = document.getElementById('select-curso');
+        const container = document.getElementById('grade-conteudo');
+        
+        if (!idAluno) return;
+
+        // Pega as matrículas do aluno selecionado
+        const matriculas = matriculaCtrl.listarPorUsuario(idAluno);
+        const todosCursos = cursoCtrl.listarTodos();
+        
+        // Filtra apenas cursos onde o ID do curso está nas matrículas do aluno
+        const cursosMatriculados = todosCursos.filter(c => matriculas.some(m => m.ID_Curso == c.ID_Curso));
+
+        if (cursosMatriculados.length > 0) {
+            selectCurso.innerHTML = cursosMatriculados.map(c => `<option value="${c.ID_Curso}">${c.Titulo}</option>`).join('');
+            carregarGrade(); 
+        } else {
+            selectCurso.innerHTML = '<option value="">Nenhuma matrícula ativa</option>';
+            container.innerHTML = `
+                <div class="alert alert-warning text-center mt-4 p-4 border-0 shadow-sm">
+                    <i class="bi bi-exclamation-triangle-fill h2 d-block"></i>
+                    Este aluno não está matriculado em nenhum curso.
+                </div>`;
+            document.getElementById('area-conclusao').style.display = 'none';
+        }
+    }
+
+    function carregarGrade() {
+        const idCurso = document.getElementById('select-curso').value;
+        const idAluno = document.getElementById('select-aluno').value;
+        const container = document.getElementById('grade-conteudo');
+        const areaCert = document.getElementById('area-conclusao');
+        
+        // Validação extra: Se por algum motivo o curso no select não for do aluno, bloqueia.
+        const matriculas = matriculaCtrl.listarPorUsuario(idAluno);
+        const alunoEstaMatriculado = matriculas.some(m => m.ID_Curso == idCurso);
+
+        if (!idCurso || !alunoEstaMatriculado) {
+            container.innerHTML = '<div class="alert alert-danger text-center">Acesso não autorizado para este curso.</div>';
+            return;
+        }
+
+        // Validação de Assinatura Financeira
+        if (idAluno && !assinaturaCtrl.verificarAcessoAtivo(idAluno)) {
+            container.innerHTML = `
+                <div class="alert alert-danger text-center mt-4 border-0 shadow-sm p-5">
+                    <i class="bi bi-shield-lock-fill text-danger" style="font-size: 3rem;"></i>
+                    <h4 class="fw-bold mt-3">Acesso Bloqueado</h4>
+                    <p class="text-muted small">Sua assinatura expirou ou seu plano está inativo.</p>
+                    <hr>
+                    <a href="financeiro.html" class="btn btn-danger btn-sm fw-bold">REGULARIZAR NO FINANCEIRO</a>
+                </div>`;
+            areaCert.style.display = 'none';
+            return; 
+        }
+
+        // Verifica progresso para exibir botão de certificado
+        areaCert.style.display = (idAluno && certCtrl.podeGerarCertificado(idAluno, idCurso)) ? 'block' : 'none';
+
+        const modulos = moduloCtrl.listarPorCurso(idCurso);
+        if (modulos.length === 0) {
+            container.innerHTML = '<div class="alert alert-light border text-center mt-3 small">Nenhum conteúdo cadastrado para este curso.</div>';
+            return;
+        }
+
+        container.innerHTML = modulos.map(m => {
+            const aulas = aulaCtrl.listarPorModulo(m.ID_Modulo);
+            return `
+                <div class="modulo-header">
+                    <span class="fw-bold"><i class="bi bi-folder2-open me-2"></i>${m.Ordem}. ${m.Titulo}</span>
+                    <span class="badge bg-primary rounded-pill">${aulas.length} aulas</span>
+                </div>
+                <div class="aulas-container mt-2">
+                    ${aulas.map(a => {
+                        const concluida = progressoCtrl.estaConcluida(idAluno, a.ID_Aula);
+                        return `
+                            <div class="aula-item ${concluida ? 'concluida' : ''} shadow-sm border rounded p-3 mb-2 bg-white d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-0 fw-bold small">${a.Titulo}</h6>
+                                    <small class="text-muted"><i class="bi bi-clock me-1"></i>${a.DuracaoMinutos} min</small>
+                                </div>
+                                <button class="btn btn-sm ${concluida ? 'btn-success' : 'btn-outline-primary'}" onclick="marcarAula(${a.ID_Aula})">
+                                    <i class="bi ${concluida ? 'bi-check-circle-fill' : 'bi-circle'} me-1"></i> ${concluida ? 'Concluída' : 'Concluir'}
+                                </button>
+                            </div>`;
+                    }).join('')}
+                </div>
+            `;
+        }).join('');
+    }
+
+    function marcarAula(idAula) {
+        const idAluno = document.getElementById('select-aluno').value;
+        progressoCtrl.marcarComoConcluida(idAluno, idAula);
+        carregarGrade(); 
+    }
+
+    function emitirCertificado() {
+        const idA = document.getElementById('select-aluno').value;
+        const idC = document.getElementById('select-curso').value;
+        const cert = certCtrl.emitir(idA, idC);
+        if (cert) {
+            alert(`Parabéns! Certificado gerado com sucesso.`);
+            location.href = 'certificados.html';
+        }
+    }
+
+    function salvarModulo() {
+        const cursoId = document.getElementById('select-curso').value;
+        const tit = document.getElementById('m-titulo').value;
+        const ord = document.getElementById('m-ordem').value;
+        if(moduloCtrl.cadastrar(cursoId, tit, ord)) {
+            bootstrap.Modal.getInstance(document.getElementById('modalModulo')).hide();
+            carregarGrade();
+        }
+    }
+
+    function prepararSelectModulos() {
+        const mods = moduloCtrl.listarPorCurso(document.getElementById('select-curso').value);
+        document.getElementById('a-modulo').innerHTML = mods.map(m => `<option value="${m.ID_Modulo}">${m.Titulo}</option>`).join('');
+    }
+
+    function salvarAula() {
+        const modId = document.getElementById('a-modulo').value;
+        const tit = document.getElementById('a-titulo').value;
+        const tipo = document.getElementById('a-tipo').value;
+        const url = document.getElementById('a-url').value;
+        const dur = document.getElementById('a-duracao').value;
+        if(aulaCtrl.cadastrar(modId, tit, tipo, url, dur, 1)) {
+            bootstrap.Modal.getInstance(document.getElementById('modalAula')).hide();
+            carregarGrade();
+        }
+    }
+</script>
+</body>
+</html>

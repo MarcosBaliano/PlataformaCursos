@@ -1,0 +1,85 @@
+/* --- GERAL E VARIÁVEIS --- */
+:root {
+    --cor-primaria: #198754;
+    --cor-dark: #1a1a1a;
+    --bg-light: #f4f7f6;
+}
+
+body { 
+    background-color: var(--bg-light); 
+    font-family: 'Segoe UI', 'Inter', sans-serif; 
+}
+
+/* --- NAVBAR --- */
+.navbar { 
+    background-color: var(--cor-dark) !important; 
+}
+
+/* --- CARDS E TABELAS --- */
+.main-card, .table-card, .card-trilha, .card-cert { 
+    background: white; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+    border: none;
+    overflow: hidden;
+}
+
+/* --- MÓDULO: USUÁRIOS --- */
+.btn-edit { 
+    color: #0d6efd; 
+    background: #e7f1ff; 
+    border: none; 
+    padding: 5px 10px; 
+    border-radius: 6px; 
+    transition: 0.2s; 
+}
+.btn-edit:hover { background: #0d6efd; color: white; }
+.badge-count { background: #6366f1; color: white; font-weight: 600; border-radius: 20px; padding: 4px 12px; }
+
+/* --- MÓDULO: CONTEÚDO E AULAS --- */
+.modulo-header { 
+    background: #e9ecef; 
+    border-radius: 8px; 
+    padding: 12px 20px; 
+    margin-top: 20px; 
+    border-left: 5px solid #0d6efd; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+.aula-item { 
+    background: white; 
+    margin-left: 30px; 
+    margin-top: 8px; 
+    border-radius: 10px; 
+    border: 1px solid #dee2e6; 
+    transition: 0.3s; 
+    padding: 12px 20px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+/* --- MÓDULO: FINANCEIRO --- */
+.nav-pills .nav-link.active { background-color: var(--cor-primaria); }
+.qr-container { 
+    background: white; 
+    padding: 10px; 
+    border-radius: 10px; 
+    display: inline-block; 
+    border: 1px solid #ddd; 
+}
+.section-title { 
+    border-left: 5px solid var(--cor-primaria); 
+    padding-left: 15px; 
+    margin-bottom: 25px; 
+}
+
+/* --- COMPONENTES EXTRA --- */
+.code-box { 
+    font-family: monospace; 
+    background: #e9ecef; 
+    padding: 2px 6px; 
+    border-radius: 4px; 
+    font-weight: bold; 
+}

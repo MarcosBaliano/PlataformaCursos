@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Usuários e Matrículas | Cursos Online </title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark mb-4" id="navbar">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="../index.html">
+            <i class="bi bi-rocket-takeoff-fill me-2"></i>Cursos<span>Online</span>
+        </a>
+        <div class="navbar-nav ms-auto flex-row gap-2">
+            <a class="nav-link" href="academico.html">Acadêmico</a>
+            <a class="nav-link ativo" href="usuario.html">Usuários</a>
+            <a class="nav-link" href="conteudo.html">Conteúdo</a>
+            <a class="nav-link" href="trilha.html">Trilhas</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row mb-4 align-items-center">
+        <div class="col-md-6">
+            <h2 class="fw-bold mb-1">Usuários do Sistema</h2>
+            <p class="text-muted">Gerencie permissões de acesso e matrículas de alunos.</p>
+        </div>
+        <div class="col-md-6 text-md-end d-flex gap-2 justify-content-md-end">
+            <button class="btn btn-outline-primary fw-bold px-3" data-bs-toggle="modal" data-bs-target="#modalMatricula" onclick="prepararSelects()">
+                <i class="bi bi-journal-plus me-1"></i>NOVA MATRÍCULA
+            </button>
+            <button class="btn btn-primary fw-bold px-3" data-bs-toggle="modal" data-bs-target="#modalUsuario">
+                <i class="bi bi-person-plus-fill me-1"></i>NOVO USUÁRIO
+            </button>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <div class="p-3 border-bottom bg-light">
+            <h6 class="m-0 fw-bold text-dark"><i class="bi bi-people me-2"></i>Lista de Colaboradores e Alunos</h6>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light text-muted">
+                    <tr>
+                        <th class="ps-4">ID</th>
+                        <th>Nome Completo</th>
+                        <th>E-mail</th>
+                        <th>Cargo</th>
+                        <th>Senha (Hash)</th>
+                        <th>Matrículas</th>
+                        <th class="text-center pe-4">Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="corpoUsuarios">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalUsuario" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header bg-dark text-white border-0">
+                <h5 class="modal-title fw-bold"><i class="bi bi-shield-lock me-2 text-warning"></i>Novo Usuário</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="mb-3">
+                    <label class="form-label small fw-bold text-muted">NOME COMPLETO</label>
+                    <input type="text" id="u-nome" class="form-control" placeholder="Marcos Silva">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-bold text-muted">E-MAIL</label>
+                    <input type="email" id="u-email" class="form-control" placeholder="exemplo@email.com">
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label small fw-bold text-muted">CARGO</label>
+                        <select id="u-cargo" class="form-select">
+                            <option value="Aluno">Aluno</option>
+                            <option value="Instrutor">Instrutor</option>
+                            <option value="Admin">Admin</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label small fw-bold text-muted">SENHA</label>
+                        <input type="password" id="u-senha" class="form-control" placeholder="******">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer border-0 p-4 pt-0">
+                <button class="btn btn-primary w-100 fw-bold py-3" onclick="salvarNovoUsuario()">CRIAR CONTA PROTEGIDA</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalMatricula" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header bg-dark text-white border-0">
+                <h5 class="modal-title fw-bold"><i class="bi bi-journal-bookmark me-2 text-warning"></i>Vincular Aluno</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="mb-3">
+                    <label class="form-label small fw-bold text-muted">SELECIONAR USUÁRIO</label>
+                    <select id="sel-usuario" class="form-select form-select-lg"></select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-bold text-muted">CURSO DISPONÍVEL</label>
+                    <select id="sel-curso" class="form-select form-select-lg"></select>
+                </div>
+            </div>
+            <div class="modal-footer border-0 p-4 pt-0">
+                <button class="btn btn-primary w-100 fw-bold py-3" onclick="salvarMatricula()">CONFIRMAR MATRÍCULA</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalVerMatriculas" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header bg-light border-0">
+                <h5 class="modal-title fw-bold text-dark"><i class="bi bi-search me-2"></i>Histórico do Aluno</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="alert alert-info border-0 d-flex align-items-center">
+                    <i class="bi bi-person-circle fs-4 me-3"></i>
+                    <h6 id="nome-aluno-detalhe" class="fw-bold m-0 text-dark"></h6>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-sm align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#ID</th>
+                                <th>Curso Vinculado</th>
+                                <th>Data Início</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-detalhe-matriculas"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="../modules/usuario/usuarioController.js"></script>
+<script src="../modules/curso/cursoController.js"></script>
+<script src="../modules/matricula/matriculaController.js"></script>
+
+<script>
+    const userCtrl = new UsuarioController();
+    const cursoCtrl = new CursoController();
+    const matCtrl = new MatriculaController();
+
+    function renderizar() {
+        const usuarios = userCtrl.listarTodos();
+        const matriculas = matCtrl.listarTodas();
+        const corpo = document.getElementById('corpoUsuarios');
+
+        corpo.innerHTML = usuarios.map(u => {
+            const numMat = matriculas.filter(m => m.ID_Usuario == u.ID_Usuario).length;
+            return `
+                <tr>
+                    <td class="ps-4 text-muted small">#${u.ID_Usuario}</td>
+                    <td><div class="fw-bold text-dark">${u.NomeCompleto}</div></td>
+                    <td class="text-muted small">${u.Email}</td>
+                    <td><span class="badge bg-light text-primary border">${u.Cargo}</span></td>
+                    <td><code class="text-indigo small">${u.Senha || '*******'}</code></td>
+                    <td>
+                        <span class="badge rounded-pill bg-primary px-3" style="font-size: 0.75rem;">
+                            ${numMat} Curso(s)
+                        </span>
+                    </td>
+                    <td class="text-center pe-4">
+                        <button class="btn btn-sm btn-light border me-1" title="Ver Detalhes" onclick="abrirDetalhesMatricula(${u.ID_Usuario}, '${u.NomeCompleto}')">
+                            <i class="bi bi-eye-fill"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger border-0" title="Excluir" onclick="removerUsuario(${u.ID_Usuario})">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+                    </td>
+                </tr>`;
+        }).join('') || '<tr><td colspan="7" class="text-center py-5 text-muted">Nenhum usuário encontrado.</td></tr>';
+    }
+
+    function salvarNovoUsuario() {
+        const n = document.getElementById('u-nome').value;
+        const e = document.getElementById('u-email').value;
+        const c = document.getElementById('u-cargo').value;
+        const s = document.getElementById('u-senha').value;
+
+        if (!n || !e || !s) {
+            alert("Preencha todos os campos obrigatórios.");
+            return;
+        }
+
+        if (userCtrl.cadastrar(n, e, s, c)) {
+            document.getElementById('u-nome').value = '';
+            document.getElementById('u-email').value = '';
+            document.getElementById('u-senha').value = '';
+            bootstrap.Modal.getInstance(document.getElementById('modalUsuario')).hide();
+            renderizar();
+        }
+    }
+
+    function prepararSelects() {
+        const usuarios = userCtrl.listarTodos();
+        const cursos = cursoCtrl.listarTodos();
+        
+        document.getElementById('sel-usuario').innerHTML = usuarios.map(u => `<option value="${u.ID_Usuario}">${u.NomeCompleto}</option>`).join('');
+        document.getElementById('sel-curso').innerHTML = cursos.map(c => `<option value="${c.ID_Curso}">${c.Titulo}</option>`).join('');
+    }
+
+    function salvarMatricula() {
+        const idU = document.getElementById('sel-usuario').value;
+        const idC = document.getElementById('sel-curso').value;
+        
+        if (matCtrl.cadastrar(idU, idC)) {
+            bootstrap.Modal.getInstance(document.getElementById('modalMatricula')).hide();
+            renderizar();
+        }
+    }
+
+    function abrirDetalhesMatricula(idUsuario, nome) {
+        document.getElementById('nome-aluno-detalhe').innerText = `${nome}`;
+        const matriculas = matCtrl.listarTodas().filter(m => m.ID_Usuario == idUsuario);
+        const cursos = cursoCtrl.listarTodos();
+        const lista = document.getElementById('lista-detalhe-matriculas');
+
+        lista.innerHTML = matriculas.map(m => {
+            const curso = cursos.find(c => c.ID_Curso == m.ID_Curso);
+            return `
+                <tr>
+                    <td><span class="text-muted small">#${m.ID_Matricula}</span></td>
+                    <td class="fw-bold">${curso ? curso.Titulo : 'Não localizado'}</td>
+                    <td class="small">${m.DataMatricula}</td>
+                    <td><span class="badge bg-success-subtle text-success">Ativa</span></td>
+                </tr>`;
+        }).join('') || '<tr><td colspan="4" class="text-center py-3 text-muted">Este aluno não possui matrículas.</td></tr>';
+
+        new bootstrap.Modal(document.getElementById('modalVerMatriculas')).show();
+    }
+
+    function removerUsuario(id) {
+        if (confirm("Atenção: Excluir este usuário também pode afetar suas matrículas e progresso. Continuar?")) {
+            let lista = userCtrl.listarTodos();
+            lista = lista.filter(u => u.ID_Usuario != id);
+            localStorage.setItem(userCtrl.key, JSON.stringify(lista));
+            renderizar();
+        }
+    }
+
+    window.onload = renderizar;
+</script>
+</body>
+</html>
